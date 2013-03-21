@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <!--//////////////////// ABOUT ////////////////////-->
+
+    <groupId>cz.jirutka.mongo</groupId>
+    <artifactId>embedmongo-spring</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>EmbedMongo Spring Factory</name>
+
+    <developers>
+        <developer>
+            <name>Jakub Jirutka</name>
+            <email>jakub@jirutka.cz</email>
+            <organization>CVUT</organization>
+            <organizationUrl>http://www.cvut.cz</organizationUrl>
+        </developer>
+    </developers>
+
+
+    <!--//////////////////// DISTRIBUTION ////////////////////-->
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>cvut-libs-release-local</id>
+            <name>CVUT Release Repository</name>
+            <url>http://repository.fit.cvut.cz/maven/libs-release-local/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>cvut-libs-snapshot-local</id>
+            <name>CVUT Snapshot Repository</name>
+            <url>http://repository.fit.cvut.cz/maven/libs-snapshot-local/</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <!--//////////////////// PROPERTIES ////////////////////-->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+    <!--//////////////////// DEPENDENCIES ////////////////////-->
+
+    <dependencies>
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>1.29</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <!-- minimal suitable version -->
+            <version>3.0.0.RELEASE</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.6</version>
+        </dependency>
+    </dependencies>
+
+
+    <!--//////////////////// BUILD ////////////////////-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!--//////////////////// PROFILES ////////////////////-->
+
+    <profiles>
+        <profile>
+            <id>deploy-profile</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
