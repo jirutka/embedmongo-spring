@@ -34,6 +34,12 @@
         </license>
     </licenses>
 
+    <scm>
+        <url>https://github.com/jirutka/embedmongo-spring</url>
+        <connection>scm:git:git://github.com/jirutka/embedmongo-spring.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:jirutka/embedmongo-spring.git</developerConnection>
+    </scm>
+
     <distributionManagement>
         <repository>
             <id>cvut-libs-release-local</id>
