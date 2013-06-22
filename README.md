@@ -26,7 +26,7 @@ Maven
 <dependency>
     <groupId>cz.jirutka.mongo</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 </dependency>
 
 <repository>
@@ -35,6 +35,12 @@ Maven
     <url>http://repository.fit.cvut.cz/maven/local-repos/</url>
 </repository>
 ```
+
+
+TODO
+----
+
+* unit and integration tests
 
 
 License
