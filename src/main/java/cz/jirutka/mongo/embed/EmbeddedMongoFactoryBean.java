@@ -49,7 +49,6 @@ import de.flapdoodle.embed.process.store.IArtifactStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -111,7 +110,7 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
      * version is provided, then {@link Version.Main#PRODUCTION PRODUCTION}
      * is used by default.
      *
-     * @param version MongoDB version
+     * @param version The MongoDB version.
      */
     public void setVersion(String version) {
         this.version = version;
@@ -125,10 +124,12 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
      * The port MongoDB should run on. When no port is provided, then some free
      * server port is automatically assigned.
      *
-     * @param port
+     * @param port The port to run on.
      */
     public void setPort(int port) {
-        Assert.isTrue(port > 0 && port <= 65535, "Port number must be between 0 and 65535");
+        if (port <= 0 || port > 65535) {
+            throw new IllegalArgumentException("Port number must be between 0 and 65535");
+        }
         this.port = port;
     }
 
@@ -146,7 +147,7 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
      * An IP address for the MongoDB instance to be bound to during its execution.
      * Default is localhost.
      *
-     * @param bindIp IPv4 or IPv6 address
+     * @param bindIp The IPv4 or IPv6 address to bound.
      */
     public void setBindIp(String bindIp) {
         this.bindIp = bindIp;
