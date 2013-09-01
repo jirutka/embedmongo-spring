@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package cz.jirutka.mongo.embed;
+package cz.jirutka.spring.embedmongo;
 
 import com.mongodb.Mongo;
-import cz.jirutka.mongo.embed.slf4j.Slf4jLevel;
-import cz.jirutka.mongo.embed.slf4j.Slf4jProgressListener;
-import cz.jirutka.mongo.embed.slf4j.Slf4jStreamProcessor;
+import cz.jirutka.spring.embedmongo.slf4j.Slf4jLevel;
+import cz.jirutka.spring.embedmongo.slf4j.Slf4jProgressListener;
+import cz.jirutka.spring.embedmongo.slf4j.Slf4jStreamProcessor;
 import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -64,7 +64,7 @@ import java.net.UnknownHostException;
  * <ul>
  *   <li>de.flapdoodle.embed.mongo.MongodProcess</li>
  *   <li>de.flapdoodle.embed.process.store.Downloader</li>
- *   <li>cz.jirutka.mongo.embed.EmbeddedMongoFactoryBean</li>
+ *   <li>cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean</li>
  * </ul>
  * </p>
  *

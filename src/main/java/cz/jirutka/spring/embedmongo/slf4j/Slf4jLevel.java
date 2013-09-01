@@ -21,43 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package cz.jirutka.mongo.embed.slf4j;
+package cz.jirutka.spring.embedmongo.slf4j;
 
-import de.flapdoodle.embed.process.io.progress.IProgressListener;
 import org.slf4j.Logger;
 
 /**
- * Listener for logging downloading progress.
+ * Copied from https://gist.github.com/adutra/2911479.
  *
- * @author Jakub Jirutka <jakub@jirutka.cz>
+ * @author Alexandre Dutra
  */
-public class Slf4jProgressListener implements IProgressListener {
+public enum Slf4jLevel {
 
-    private final Logger logger;
-    private int lastPercent = -1;
-
-
-    public Slf4jProgressListener(Logger logger) {
-        this.logger = logger;
-    }
-
-
-    public void progress(String label, int percent) {
-        if (percent != lastPercent && percent % 10 == 0) {
-            logger.debug("{} : {} %", label, percent);
+    TRACE {
+        public void log(Logger logger, String message) {
+            logger.trace(message);
         }
-        lastPercent = percent;
-    }
+    },
+    DEBUG {
+        public void log(Logger logger, String message) {
+            logger.debug(message);
+        }
+    },
+    INFO {
+        public void log(Logger logger, String message) {
+            logger.info(message);
+        }
+    },
+    WARN {
+        public void log(Logger logger, String message) {
+            logger.warn(message);
+        }
+    },
+    ERROR {
+        public void log(Logger logger, String message) {
+            logger.error(message);
+        }
+    };
 
-    public void done(String label) {
-        logger.info("{} : finished", label);
-    }
-
-    public void start(String label) {
-        logger.info("{} : starting...", label);
-    }
-
-    public void info(String label, String message) {
-        logger.info("{} : {}", label, message);
-    }
+    public abstract void log(Logger logger, String message);
 }

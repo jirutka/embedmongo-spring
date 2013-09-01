@@ -8,7 +8,7 @@
 
     <!--//////////////////// ABOUT ////////////////////-->
 
-    <groupId>cz.jirutka.mongo</groupId>
+    <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package cz.jirutka.mongo.embed.slf4j;
+package cz.jirutka.spring.embedmongo.slf4j;
 
 import de.flapdoodle.embed.process.io.IStreamProcessor;
 import org.slf4j.Logger;
@@ -48,12 +48,10 @@ public class Slf4jStreamProcessor implements IStreamProcessor {
         this.level = level;
     }
 
-    @Override
     public void process(String line) {
         level.log(logger, stripLineEndings(line));
     }
 
-    @Override
     public void onProcessed() {
     }
 
