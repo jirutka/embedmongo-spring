@@ -24,6 +24,7 @@
 package cz.jirutka.spring.embedmongo;
 
 import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import cz.jirutka.spring.embedmongo.slf4j.Slf4jLevel;
 import cz.jirutka.spring.embedmongo.slf4j.Slf4jProgressListener;
 import cz.jirutka.spring.embedmongo.slf4j.Slf4jStreamProcessor;
@@ -31,18 +32,13 @@ import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.AbstractMongoConfig.Net;
-import de.flapdoodle.embed.mongo.config.AbstractMongoConfig.Storage;
-import de.flapdoodle.embed.mongo.config.AbstractMongoConfig.Timeout;
-import de.flapdoodle.embed.mongo.config.ArtifactStoreBuilder;
-import de.flapdoodle.embed.mongo.config.DownloadConfigBuilder;
-import de.flapdoodle.embed.mongo.config.MongodConfig;
-import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
+import de.flapdoodle.embed.mongo.config.*;
+import de.flapdoodle.embed.mongo.distribution.IFeatureAwareVersion;
 import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.distribution.Versions;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
 import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.distribution.GenericVersion;
-import de.flapdoodle.embed.process.distribution.IVersion;
 import de.flapdoodle.embed.process.runtime.Network;
 import de.flapdoodle.embed.process.store.Downloader;
 import de.flapdoodle.embed.process.store.IArtifactStore;
@@ -51,7 +47,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 
 /**
  * {@linkplain FactoryBean} for EmbedMongo that runs MongoDB as managed process
@@ -94,7 +89,7 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
         LOG.info("Starting embedded MongoDB instance");
         mongodExe.start();
 
-        return new Mongo(getBindIp(), getPort());
+        return new MongoClient(getBindIp(), getPort());
     }
 
     public Class<Mongo> getObjectType() {
@@ -187,15 +182,14 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
                 .build();
     }
 
-    private MongodConfig buildMongodConfig() throws UnknownHostException {
-        return new MongodConfig(
-                parseVersion(version),
-                new Net(getBindIp(), getPort(), Network.localhostIsIPv6()),
-                new Storage(),
-                new Timeout());
+    private IMongodConfig buildMongodConfig() throws IOException {
+        return new MongodConfigBuilder()
+                .version(parseVersion(version))
+                .net(new Net(getBindIp(), getPort(), Network.localhostIsIPv6()))
+                .build();
     }
 
-    private IVersion parseVersion(String version) {
+    private IFeatureAwareVersion parseVersion(String version) {
         if (version == null) {
             return Version.Main.PRODUCTION;
         }
@@ -205,11 +199,11 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
             versionEnumName = "V" + versionEnumName;
         }
         try {
-            return Version.Main.valueOf(versionEnumName);
+            return Version.valueOf(versionEnumName);
         } catch (IllegalArgumentException ex) {
             LOG.warn("Unrecognised MongoDB version '{}', this might be a new version that we don't yet know about. " +
                     "Attempting download anyway...", version);
-            return new GenericVersion(version);
+            return Versions.withFeatures(new GenericVersion(version));
         }
     }
 }
