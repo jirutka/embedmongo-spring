@@ -44,6 +44,7 @@ import de.flapdoodle.embed.process.store.Downloader;
 import de.flapdoodle.embed.process.store.IArtifactStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 
 import java.io.IOException;
@@ -72,7 +73,7 @@ import java.io.IOException;
  *
  * @author Jakub Jirutka <jakub@jirutka.cz>
  */
-public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
+public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(EmbeddedMongoFactoryBean.class);
 
@@ -80,11 +81,13 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
     private Integer port;
     private String bindIp = "localhost";
 
+    private MongodExecutable mongodExe;
 
-    public Mongo getObject() throws Exception {
+
+    public Mongo getObject() throws IOException {
         LOG.info("Initializing embedded MongoDB instance");
         MongodStarter runtime = MongodStarter.getInstance(buildRuntimeConfig());
-        MongodExecutable mongodExe = runtime.prepare(buildMongodConfig());
+        mongodExe = runtime.prepare(buildMongodConfig());
 
         LOG.info("Starting embedded MongoDB instance");
         mongodExe.start();
@@ -98,6 +101,13 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo> {
 
     public boolean isSingleton() {
         return true;
+    }
+
+    public void destroy() {
+        if (mongodExe != null) {
+            LOG.info("Stopping embedded MongoDB instance");
+            mongodExe.stop();
+        }
     }
 
     /**
