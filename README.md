@@ -11,7 +11,7 @@ Usage
 
 ```xml
 <bean id="mongo" class="cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean"
-      p:version="2.2"
+      p:version="2.4.5"
       p:bindIp="127.0.0.1"
       p:port="12345" />
 ```
@@ -28,7 +28,7 @@ Released versions are available in The Central Repository. Just add this artifac
 <dependency>
     <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 
