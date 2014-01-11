@@ -117,8 +117,9 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableB
      *
      * @param version The MongoDB version.
      */
-    public void setVersion(String version) {
+    public EmbeddedMongoFactoryBean setVersion(String version) {
         this.version = version;
+        return this;
     }
 
     public String getVersion() {
@@ -131,11 +132,12 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableB
      *
      * @param port The port to run on.
      */
-    public void setPort(int port) {
+    public EmbeddedMongoFactoryBean setPort(int port) {
         if (port <= 0 || port > 65535) {
             throw new IllegalArgumentException("Port number must be between 0 and 65535");
         }
         this.port = port;
+        return this;
     }
 
     public int getPort() {
@@ -154,8 +156,9 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableB
      *
      * @param bindIp The IPv4 or IPv6 address to bound.
      */
-    public void setBindIp(String bindIp) {
+    public EmbeddedMongoFactoryBean setBindIp(String bindIp) {
         this.bindIp = bindIp;
+        return this;
     }
 
     public String getBindIp() {
