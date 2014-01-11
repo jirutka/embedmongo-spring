@@ -5,12 +5,18 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>cz.jirutka.maven</groupId>
+        <artifactId>root-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
 
     <!--//////////////////// ABOUT ////////////////////-->
 
     <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>EmbedMongo - Spring Factory</name>
@@ -42,27 +48,6 @@
         <connection>scm:git:git://github.com/jirutka/embedmongo-spring.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:jirutka/embedmongo-spring.git</developerConnection>
     </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>sonatype-staging</id>
-            <name>Sonatype repository for staging releases for Maven Central</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>sonatype-snapshots</id>
-            <name>Sonatype repository for deploying snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-
-    <!--//////////////////// PROPERTIES ////////////////////-->
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
 
     <!--//////////////////// DEPENDENCIES ////////////////////-->
@@ -99,78 +84,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
-        </dependency>
     </dependencies>
-
-
-    <!--//////////////////// BUILD ////////////////////-->
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-
-    <!--//////////////////// PROFILES ////////////////////-->
-
-    <profiles>
-        <profile>
-            <id>deploy-profile</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
