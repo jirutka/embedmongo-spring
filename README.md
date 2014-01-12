@@ -24,7 +24,7 @@ public Mongo mongo() throws IOException {
     return new EmbeddedMongoBuilder()
             .version("2.4.5")
             .bindIp("127.0.0.1")
-            .port(123456)
+            .port(12345)
             .build();
 }
 ```
