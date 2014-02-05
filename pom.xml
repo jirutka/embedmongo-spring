@@ -8,7 +8,7 @@
     <parent>
         <groupId>cz.jirutka.maven</groupId>
         <artifactId>root-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1.1</version>
     </parent>
 
 
@@ -16,7 +16,7 @@
 
     <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>EmbedMongo - Spring Factory</name>
@@ -48,6 +48,13 @@
         <connection>scm:git:git://github.com/jirutka/embedmongo-spring.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:jirutka/embedmongo-spring.git</developerConnection>
     </scm>
+
+
+    <!--//////////////////// PROPERTIES ////////////////////-->
+
+    <properties>
+        <java.source.version>1.6</java.source.version>
+    </properties>
 
 
     <!--//////////////////// DEPENDENCIES ////////////////////-->
