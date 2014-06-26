@@ -1,5 +1,6 @@
 Spring Factory Bean for EmbedMongo
 ==================================
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.spring/embedmongo-spring/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.spring/embedmongo-spring)
 
 [Spring](http://www.springsource.org/spring-framework) Factory Bean for [EmbedMongo](https://github.com/flapdoodle-oss/embedmongo.flapdoodle.de) that runs “embedded” MongoDB as managed process to use in integration tests (especially with CI). Unlike EmbedMongo default settings, this factory uses Slf4j for all logging by default so you can use any logging implementation you want.
 
