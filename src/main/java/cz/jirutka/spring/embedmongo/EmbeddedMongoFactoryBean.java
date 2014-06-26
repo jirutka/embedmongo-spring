@@ -25,7 +25,6 @@ package cz.jirutka.spring.embedmongo;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import de.flapdoodle.embed.mongo.distribution.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -71,7 +70,7 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableB
 
     /**
      * The version of MongoDB to run e.g. 2.1.1, 1.6 v1.8.2, V2_0_4. When no
-     * version is provided, then {@link Version.Main#PRODUCTION PRODUCTION}
+     * version is provided, then {@link de.flapdoodle.embed.mongo.distribution.Version.Main#PRODUCTION PRODUCTION}
      * is used by default. The value must not be empty.
      */
     public void setVersion(String version) {

@@ -23,7 +23,6 @@
  */
 package cz.jirutka.spring.embedmongo;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import cz.jirutka.spring.embedmongo.slf4j.Slf4jLevel;
 import cz.jirutka.spring.embedmongo.slf4j.Slf4jProgressListener;
@@ -67,7 +66,7 @@ import static de.flapdoodle.embed.mongo.distribution.Version.Main.PRODUCTION;
  * Mongo as there's no Java implementation of the MongoDB. EmbedMongo actually
  * downloads an original MongoDB binary for your platform and executes it.
  * The EmbedMongo process is stopped automatically when you close connection with
- * {@link Mongo}.</p>
+ * {@link com.mongodb.Mongo}.</p>
  *
  * @see <a href=https://github.com/flapdoodle-oss/embedmongo.flapdoodle.de>embedmongo.flapdoodle.de</a>
  *
@@ -87,7 +86,7 @@ public class EmbeddedMongoBuilder {
      * Builds {@link MongodStarter}, then starts "embedded" MongoDB instance
      * and returns initialized {@code MongoClient}.
      *
-     * <p>You should invoke {@link Mongo#close()} after job is done to close
+     * <p>You should invoke {@link com.mongodb.Mongo#close()} after job is done to close
      * the client and stop the MongoDB instance.</p>
      *
      * @return A fully initialized {@code MongoClient).
@@ -158,8 +157,9 @@ public class EmbeddedMongoBuilder {
 
     private int getPort() {
         if (port == null) {
-            try { port = Network.getFreeServerPort(); }
-            catch (IOException ex) {
+            try {
+                port = Network.getFreeServerPort();
+            } catch (IOException ex) {
                 LOG.error("Could not get free server port");
             }
         }
