@@ -42,7 +42,7 @@ Released versions are available in The Central Repository. Just add this artifac
 <dependency>
     <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 </dependency>
 ```
 
