@@ -20,7 +20,7 @@ Usage
 ```
 
 ```java
-@Bean
+@Bean(destroyMethod="close")
 public Mongo mongo() throws IOException {
     return new EmbeddedMongoBuilder()
             .version("2.4.5")
