@@ -57,7 +57,7 @@
     <!--//////////////////// PROPERTIES ////////////////////-->
 
     <properties>
-        <java.source.version>1.6</java.source.version>
+        <java.source.version>1.7</java.source.version>
     </properties>
 
 
