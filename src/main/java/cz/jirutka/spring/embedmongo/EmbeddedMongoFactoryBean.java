@@ -87,7 +87,8 @@ public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableB
 
     /**
      * An IPv4 or IPv6 address for the MongoDB instance to be bound to during
-     * its execution. Default is localhost. The value must not be empty.
+     * its execution. Default is a {@linkplain java.net.InetAddress#getLoopbackAddress()
+     * loopback address}. The value must not be empty.
      */
     public void setBindIp(String bindIp) {
         builder.bindIp(bindIp);

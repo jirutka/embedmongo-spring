@@ -45,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import static de.flapdoodle.embed.mongo.distribution.Version.Main.PRODUCTION;
 
@@ -79,7 +80,7 @@ public class EmbeddedMongoBuilder {
 
     private IFeatureAwareVersion version = PRODUCTION;
     private Integer port;
-    private String bindIp = "localhost";
+    private String bindIp = InetAddress.getLoopbackAddress().getHostAddress();
 
 
     /**
@@ -144,7 +145,8 @@ public class EmbeddedMongoBuilder {
 
     /**
      * An IPv4 or IPv6 address for the MongoDB instance to be bound to during
-     * its execution. Default is localhost. The value must not be empty.
+     * its execution. Default is a {@linkplain InetAddress#getLoopbackAddress()
+     * loopback address}. The value must not be empty.
      */
     public EmbeddedMongoBuilder bindIp(String bindIp) {
         if (bindIp == null || bindIp.isEmpty()) {
