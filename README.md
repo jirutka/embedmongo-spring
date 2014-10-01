@@ -42,7 +42,7 @@ Released versions are available in The Central Repository. Just add this artifac
 <dependency>
     <groupId>cz.jirutka.spring</groupId>
     <artifactId>embedmongo-spring</artifactId>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -58,6 +58,8 @@ However if you want to use the last snapshot version, you have to add the Sonaty
     </snapshots>
 </repository>
 ```
+
+**Note:** If you’re stuck on Java 6 for any absurd reason, use version 1.2.2.
 
 
 TODO
