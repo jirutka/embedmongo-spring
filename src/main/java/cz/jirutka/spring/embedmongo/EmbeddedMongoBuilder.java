@@ -206,7 +206,7 @@ public class EmbeddedMongoBuilder {
 
     private IFeatureAwareVersion parseVersion(String version) {
         String versionEnumName = version.toUpperCase().replaceAll("\\.", "_");
-        if (version.charAt(0) != 'V') {
+        if (!versionEnumName.startsWith("V")) {
             versionEnumName = "V" + versionEnumName;
         }
         try {
