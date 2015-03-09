@@ -112,7 +112,7 @@ public class EmbeddedMongoBuilder {
      */
     public EmbeddedMongoBuilder version(Version version) {
         if (version == null) {
-            throw new IllegalArgumentException("version must not be null");
+            throw new IllegalArgumentException("Version must not be null");
         }
         this.version = version;
         return this;
@@ -125,7 +125,7 @@ public class EmbeddedMongoBuilder {
      */
     public EmbeddedMongoBuilder version(String version) {
         if (version == null || version.isEmpty()) {
-            throw new IllegalArgumentException("version must not be blank");
+            throw new IllegalArgumentException("Version must not be null or empty");
         }
         this.version = parseVersion(version);
         return this;
@@ -150,7 +150,7 @@ public class EmbeddedMongoBuilder {
      */
     public EmbeddedMongoBuilder bindIp(String bindIp) {
         if (bindIp == null || bindIp.isEmpty()) {
-            throw new IllegalArgumentException("bindIp must not be blank");
+            throw new IllegalArgumentException("BindIp must not be null or empty");
         }
         this.bindIp = bindIp;
         return this;
