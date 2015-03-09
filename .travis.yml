@@ -1,0 +1,9 @@
+language: java
+sudo: false
+jdk:
+  - openjdk7
+  - oraclejdk8
+script:
+  - 'mvn verify -B'
+after_success:
+  - 'mvn jacoco:report coveralls:jacoco'
