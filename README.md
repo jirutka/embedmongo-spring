@@ -62,12 +62,6 @@ However if you want to use the last snapshot version, you have to add the Sonaty
 **Note:** If you’re stuck on Java 6 for any absurd reason, use version 1.2.2.
 
 
-TODO
-----
-
-* unit and integration tests
-
-
 License
 -------
 
