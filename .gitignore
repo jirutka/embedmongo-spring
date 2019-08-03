@@ -1,3 +1,15 @@
-target
-.idea
-*.iml
+#Maven folders
+**/target
+**/pom.xml.versionsBackup
+
+# Eclipse files
+**/.project
+**/.classpath
+**/.settings
+
+# IDEA files
+**/.idea
+**/*.iml
+
+# Jetty
+**/catalina.base_IS_UNDEFINED

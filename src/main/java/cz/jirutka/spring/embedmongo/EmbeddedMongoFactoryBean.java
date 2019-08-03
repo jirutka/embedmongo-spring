@@ -23,14 +23,15 @@
  */
 package cz.jirutka.spring.embedmongo;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 
-import java.io.IOException;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 /**
  * {@linkplain FactoryBean} for EmbedMongo that runs MongoDB as a managed
@@ -42,55 +43,63 @@ import java.io.IOException;
  */
 public class EmbeddedMongoFactoryBean implements FactoryBean<Mongo>, DisposableBean {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EmbeddedMongoFactoryBean.class);
+  private static final Logger LOG = LoggerFactory.getLogger(EmbeddedMongoFactoryBean.class);
 
-    private final EmbeddedMongoBuilder builder = new EmbeddedMongoBuilder();
-    private MongoClient mongoClient;
+  private final EmbeddedMongoBuilder builder = new EmbeddedMongoBuilder();
+  private MongoClient mongoClient;
 
+  @Override
+  public MongoClient getObject() throws IOException {
+    mongoClient = builder.build();
+    return mongoClient;
+  }
 
-    public MongoClient getObject() throws IOException {
-        mongoClient = builder.build();
-        return mongoClient;
+  @Override
+  public Class<MongoClient> getObjectType() {
+    return MongoClient.class;
+  }
+
+  @Override
+  public boolean isSingleton() {
+    return true;
+  }
+
+  @Override
+  public void destroy() {
+    if (mongoClient != null) {
+      LOG.info("Stopping embedded MongoDB instance");
+      mongoClient.close();
     }
+  }
 
-    public Class<MongoClient> getObjectType() {
-        return MongoClient.class;
-    }
+  /**
+   * The version of MongoDB to run e.g. 2.1.1, 1.6 v1.8.2, V2_0_4. When no
+   * version is provided, then {@link de.flapdoodle.embed.mongo.distribution.Version.Main#PRODUCTION PRODUCTION}
+   * is used by default. The value must not be empty.
+   */
+  public void setVersion(String version) {
+    builder.version(version);
+  }
 
-    public boolean isSingleton() {
-        return true;
-    }
+  /**
+   * The port MongoDB should run on. When no port is provided, then some free
+   * server port is automatically assigned. The value must be between 0 and 65535.
+   */
+  public void setPort(int port) {
+    builder.port(port);
+  }
 
-    public void destroy() {
-        if (mongoClient != null) {
-            LOG.info("Stopping embedded MongoDB instance");
-            mongoClient.close();
-        }
-    }
+  /**
+   * An IPv4 or IPv6 address for the MongoDB instance to be bound to during
+   * its execution. Default is a {@linkplain java.net.InetAddress#getLoopbackAddress()
+   * loopback address}. The value must not be empty.
+   */
+  public void setBindIp(String bindIp) {
+    builder.bindIp(bindIp);
+  }
 
-    /**
-     * The version of MongoDB to run e.g. 2.1.1, 1.6 v1.8.2, V2_0_4. When no
-     * version is provided, then {@link de.flapdoodle.embed.mongo.distribution.Version.Main#PRODUCTION PRODUCTION}
-     * is used by default. The value must not be empty.
-     */
-    public void setVersion(String version) {
-        builder.version(version);
-    }
+  public void setCollections(EmbeddedMongoCollection... embeddedMongoCollections) {
+    builder.embeddedMongoCollections(embeddedMongoCollections);
+  }
 
-    /**
-     * The port MongoDB should run on. When no port is provided, then some free
-     * server port is automatically assigned. The value must be between 0 and 65535.
-     */
-    public void setPort(int port) {
-        builder.port(port);
-    }
-
-    /**
-     * An IPv4 or IPv6 address for the MongoDB instance to be bound to during
-     * its execution. Default is a {@linkplain java.net.InetAddress#getLoopbackAddress()
-     * loopback address}. The value must not be empty.
-     */
-    public void setBindIp(String bindIp) {
-        builder.bindIp(bindIp);
-    }
 }
