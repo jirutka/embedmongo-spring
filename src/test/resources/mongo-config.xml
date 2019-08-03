@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/data/mongo
+		http://www.springframework.org/schema/data/mongo/spring-mongo-1.10.xsd">
+
+    <mongo:mongo-client id="mongo" host="${mongo.host}" port="${mongo.port}">
+        <mongo:client-options write-concern="NORMAL" read-preference="SECONDARY" threads-allowed-to-block-for-connection-multiplier="200"
+                              connections-per-host="30"/>
+    </mongo:mongo-client>
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongo"/>
+        <constructor-arg name="databaseName" value="${mongo.databasename}"/>
+    </bean>
+    
+    <bean id="mongo" class="cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean">
+      	<property name="version" value="3.2.1" />
+      	<property name="bindIp" value="${mongo.host}" />
+      	<property name="port" value="${mongo.port}" />
+      	<property name="collections" ref="collection" />
+    </bean>
+    
+    <bean id="collection" class="cz.jirutka.spring.embedmongo.EmbeddedMongoCollection">
+      	<constructor-arg name="dbName" value="${mongo.databasename}" />
+      	<constructor-arg name="collectionsName" value="${mongo.collection.1}, ${mongo.collection.2}, ${mongo.collection.3}" />
+    </bean>
+
+</beans>
