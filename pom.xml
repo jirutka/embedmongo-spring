@@ -86,7 +86,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <!-- minimal suitable version -->
-            <version>3.0.0.RELEASE</version>
+            <version>5.2.20.RELEASE</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
